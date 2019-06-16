@@ -17,16 +17,6 @@
 	return [CBDManager sharedInstance];
 }
 
--(NSUInteger)homescreenColumns {
-	if (_homescreenColumns <= 0) return 4;
-	return _homescreenColumns;
-}
-
--(NSUInteger)homescreenRows {
-	if (_homescreenRows <= 0) return 6;
-	return _homescreenRows;
-}
-
 -(void)load {
 	self.hideIconLabels = [self.defaults boolForKey:@"hideIconLabels"];
 	self.homescreenColumns = [self.defaults integerForKey:@"homescreenColumns"];

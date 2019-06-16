@@ -28,12 +28,12 @@
 %hook SBRootIconListView
 
 +(NSUInteger)iconColumnsForInterfaceOrientation:(NSInteger)arg1{
-	if ([[CBDManager sharedInstance] homescreenColumns] != 0) return [[CBDManager sharedInstance] homescreenColumns];
+	if ([[CBDManager sharedInstance] homescreenColumns] > 0) return [[CBDManager sharedInstance] homescreenColumns];
 	return %orig;
 }
 
 +(NSUInteger)iconRowsForInterfaceOrientation:(NSInteger)arg1{
-	if ([[CBDManager sharedInstance] homescreenRows] != 0) return [[CBDManager sharedInstance] homescreenRows];
+	if ([[CBDManager sharedInstance] homescreenRows] > 0) return [[CBDManager sharedInstance] homescreenRows];
 	return %orig;
 }
 
