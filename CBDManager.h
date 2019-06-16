@@ -1,3 +1,5 @@
+#import "CBDView.h"
+
 @interface CBDManager : NSObject
 
 @property (nonatomic, strong) NSUserDefaults* defaults;
@@ -9,6 +11,8 @@
 @property (nonatomic, assign) CGFloat horizontalOffset;
 @property (nonatomic, assign) CGFloat verticalPadding;
 @property (nonatomic, assign) CGFloat horizontalPadding;
+
+@property (nonatomic, assign) CBDView *view;
 
 +(instancetype)sharedInstance;
 -(id)init;

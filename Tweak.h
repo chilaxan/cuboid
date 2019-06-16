@@ -1,9 +1,8 @@
-#define OFFSETSETTINGS 0
-#define PADDINGSETTINGS 1
-#define PRESETSETTINGS 2
-#define MISCSETTINGS 3
+#import "CBDView.h"
 
-@interface SBIconController : NSObject
+@interface SBIconController : UIViewController
+
+@property (nonatomic, strong) CBDView *cbdView;
 +(id)sharedInstance;
 -(BOOL)isEditing;
 -(BOOL)relayout;
@@ -14,13 +13,4 @@
 @end
 
 @interface SBEditingDoneButton : UIView
-@end
-
-@interface CuboidMenu : NSObject
-+(void)showSettingsAlert;
-+(void)setMiscSettings;
-+(void)setOffsetSettings;
-+(void)setPaddingSettings;
-+(void)setPresetSettings;
-+(void)setValueIntegerInput:(NSString*)editingType withKey:(NSString*)key withCaller:(int)caller;
 @end
