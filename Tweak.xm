@@ -1,129 +1,67 @@
-#define OFFSETSETTINGS 0
-#define PADDINGSETTINGS 1
-#define PRESETSETTINGS 2
-#define MISCSETTINGS 3
-
-@interface SBIconController : NSObject
-+(id)sharedInstance;
--(BOOL)isEditing;
--(BOOL)relayout;
--(void)setIsEditing:(BOOL)arg1;
-@end
-
-@interface UIStatusBarWindow : UIWindow
-@end
-
-@interface SBEditingDoneButton : UIView
-@end
-
-@interface CuboidMenu : NSObject
-+(void)showSettingsAlert;
-+(void)setMiscSettings;
-+(void)setOffsetSettings;
-+(void)setPaddingSettings;
-+(void)setPresetSettings;
-+(void)setValueIntegerInput:(NSString*)editingType withKey:(NSString*)key withCaller:(int)caller;
-@end
-
-NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-NSString *stringFromIntegerKey(NSString *key) {
-	if([defaults objectForKey:key] == nil) {
-		return @"Not Set";
-	} else {
-		return [NSString stringWithFormat:@"%ld",(long)[defaults integerForKey:key]];
-	}
-}
+#import "Tweak.h"
+#import "CBDManager.h"
 
 %hook SBRootFolderController
+
 -(void)setEditingStatusBarAssertion:(id)arg1 {}
+
 %end
 
 %hook SBEditingDoneButton
+
 -(void)layoutSubviews {
 	%orig;
 	self.hidden = 1;
 }
+
 %end
 
 %hook SBIconLegibilityLabelView
+
 -(void)setHidden:(BOOL)arg1 {
-	if([defaults objectForKey:@"hideIconLabels"] == nil) {
-		%orig(arg1);
-	} else {
-		%orig([defaults boolForKey:@"hideIconLabels"]);
-	}
+	if ([[CBDManager sharedInstance] hideIconLabels]) %orig(YES);
+	else %orig;
 }
+
 %end
 
 %hook SBRootIconListView
+
 +(NSUInteger)iconColumnsForInterfaceOrientation:(NSInteger)arg1{
-	NSUInteger original = %orig;
-	NSString *key = @"homescreenColumns";
-	if([defaults objectForKey:key] == nil) {
-		return original;
-	} else {
-		if((long)[defaults integerForKey:key] <= (long)0) { //Fixes Respring Loops due to 0 homescreenColumns
-			[defaults setInteger:original forKey:key];
-			[defaults synchronize];
-		}
-		return((NSUInteger)[defaults integerForKey:key]);
-	}
+	if ([[CBDManager sharedInstance] homescreenColumns] != 0) return [[CBDManager sharedInstance] homescreenColumns];
+	return %orig;
 }
 
 +(NSUInteger)iconRowsForInterfaceOrientation:(NSInteger)arg1{
-	NSUInteger original = %orig;
-	NSString *key = @"homescreenRows";
-	if([defaults objectForKey:key] == nil) {
-		return original;
-	} else {
-		if((long)[defaults integerForKey:key] <= (long)0) { //Fixes Respring Loops due to 0 homescreenRows
-			[defaults setInteger:original forKey:key];
-			[defaults synchronize];
-		}
-		return((NSUInteger)[defaults integerForKey:key]);
-	}
+	if ([[CBDManager sharedInstance] homescreenRows] != 0) return [[CBDManager sharedInstance] homescreenRows];
+	return %orig;
 }
 
 -(CGFloat)topIconInset {
-	if([defaults objectForKey:@"verticalOffset"] == nil) {
-		return %orig;
-	} else {
-		return((CGFloat)[defaults integerForKey:@"verticalOffset"]);
-	}
+	if ([[CBDManager sharedInstance] verticalOffset] != 0) return [[CBDManager sharedInstance] verticalOffset];
+	return %orig;
 }
 
 -(CGFloat)bottomIconInset {
-	if([defaults objectForKey:@"verticalOffset"] == nil) {
-		return %orig;
-	} else {
-		return((CGFloat)[defaults integerForKey:@"verticalOffset"] * -1);
-	}
+	if ([[CBDManager sharedInstance] verticalOffset] != 0) return [[CBDManager sharedInstance] verticalOffset] * -1;
+	return %orig;
 }
 
 -(CGFloat)sideIconInset {
-	if([defaults objectForKey:@"horizontalOffset"] == nil) {
-		return %orig;
-	} else {
-		return((CGFloat)[defaults integerForKey:@"horizontalOffset"]);
-	}
+	if ([[CBDManager sharedInstance] horizontalOffset] != 0) return [[CBDManager sharedInstance] horizontalOffset];
+	return %orig;
 }
 
 -(CGFloat)verticalIconPadding {
-	if([defaults objectForKey:@"verticalPadding"] == nil) {
-		return %orig;
-	} else {
-		return((CGFloat)[defaults integerForKey:@"verticalPadding"]);
-	}
+	if ([[CBDManager sharedInstance] verticalPadding] != 0) return [[CBDManager sharedInstance] verticalPadding];
+	return %orig;
 }
 
 -(CGFloat)horizontalIconPadding {
-	if([defaults objectForKey:@"horizontalPadding"] == nil) {
-		return %orig;
-	} else {
-		return((CGFloat)[defaults integerForKey:@"horizontalPadding"]);
-	}
+	if ([[CBDManager sharedInstance] horizontalPadding] != 0) return [[CBDManager sharedInstance] horizontalPadding];
+	return %orig;
 }
+
 %end
 
 %hook UIStatusBarWindow
@@ -142,14 +80,15 @@ static BOOL ignoreIsEditing = NO;
 		ignoreIsEditing = YES;
 		UIAlertController *settingsAlertController = [UIAlertController
 		alertControllerWithTitle:@"Cuboid Settings"
-		message:[NSString stringWithFormat:@"Homescreen Columns: %@\rHomescreen Rows: %@\rVertical Offset: %@\rHorizontal Offset: %@\rVertical Padding: %@\rHorizontal Padding: %@\rHide Icon Labels: %@",
-			stringFromIntegerKey(@"homescreenColumns"),
-			stringFromIntegerKey(@"homescreenRows"),
-			stringFromIntegerKey(@"verticalOffset"),
-			stringFromIntegerKey(@"horizontalOffset"),
-			stringFromIntegerKey(@"verticalPadding"),
-			stringFromIntegerKey(@"horizontalPadding"),
-			[defaults boolForKey:@"hideIconLabels"] ? @"YES" : @"NO"]
+		message:[NSString stringWithFormat:@"Homescreen Columns: %lu\rHomescreen Rows: %lu\rVertical Offset: %.01f\rHorizontal Offset: %.01f\rVertical Padding: %.01f\rHorizontal Padding: %.01f\rHide Icon Labels: %@",
+			(unsigned long)[[CBDManager sharedInstance] homescreenColumns],
+			(unsigned long)[[CBDManager sharedInstance] homescreenRows],
+			[[CBDManager sharedInstance] verticalOffset],
+			[[CBDManager sharedInstance] horizontalOffset],
+			[[CBDManager sharedInstance] verticalPadding],
+			[[CBDManager sharedInstance] horizontalPadding],
+			[[CBDManager sharedInstance] hideIconLabels] ? @"YES" : @"NO"
+		]
 		preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction *showOffsetSettings = [UIAlertAction
@@ -192,9 +131,10 @@ static BOOL ignoreIsEditing = NO;
 +(void)setOffsetSettings {
 	UIAlertController *offsetSettingsAlertController = [UIAlertController
 	alertControllerWithTitle:@"Offset Settings"
-	message:[NSString stringWithFormat:@"Vertical Offset: %@\rHorizontal Offset: %@",
-		stringFromIntegerKey(@"verticalOffset"),
-		stringFromIntegerKey(@"horizontalOffset")]
+	message:[NSString stringWithFormat:@"Vertical Offset: %.01f\rHorizontal Offset: %.01f",
+		[[CBDManager sharedInstance] verticalOffset],
+		[[CBDManager sharedInstance] horizontalOffset]
+	]
 	preferredStyle:UIAlertControllerStyleAlert];
 	
 	UIAlertAction *changeVerticalOffset = [UIAlertAction
@@ -229,9 +169,10 @@ static BOOL ignoreIsEditing = NO;
 +(void)setPaddingSettings {
 	UIAlertController *paddingSettingsAlertController = [UIAlertController
 	alertControllerWithTitle:@"Padding Settings"
-	message:[NSString stringWithFormat:@"Vertical Padding: %@\rHorizontal Padding: %@",
-		stringFromIntegerKey(@"verticalPadding"),
-		stringFromIntegerKey(@"horizontalPadding")]
+	message:[NSString stringWithFormat:@"Vertical Padding: %.01f\rHorizontal Padding: %.01f",
+		[[CBDManager sharedInstance] verticalPadding],
+		[[CBDManager sharedInstance] horizontalPadding]
+	]
 	preferredStyle:UIAlertControllerStyleAlert];
 	
 	UIAlertAction *changeVerticalPadding = [UIAlertAction
@@ -263,8 +204,9 @@ static BOOL ignoreIsEditing = NO;
 	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:paddingSettingsAlertController animated:YES completion:NULL];
 }
 
+// TODO FIX THIS
 +(void)setPresetSettings {
-	if(![defaults objectForKey:@"savedLayouts"]) {
+	/*if(![defaults objectForKey:@"savedLayouts"]) {
 		NSDictionary *emptyDict = [[NSMutableDictionary	alloc] init];
 		[defaults setObject:emptyDict forKey:@"savedLayouts"];
 		[defaults synchronize];
@@ -413,16 +355,17 @@ static BOOL ignoreIsEditing = NO;
 	[presetSettingsAlertController addAction:deleteLayout];
 	[presetSettingsAlertController addAction:resetSettings];
 	[presetSettingsAlertController addAction:backToMain];
-	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:presetSettingsAlertController animated:YES completion:NULL];
+	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:presetSettingsAlertController animated:YES completion:NULL];*/
 }
 
 +(void)setMiscSettings {
 	UIAlertController *miscSettingsAlertController = [UIAlertController
 	alertControllerWithTitle:@"Miscellaneous"
-	message:[NSString stringWithFormat:@"Homescreen Columns: %@\rHomescreen Rows: %@\rHide Icon Labels: %@",
-		stringFromIntegerKey(@"homescreenColumns"),
-		stringFromIntegerKey(@"homescreenRows"),
-		[defaults boolForKey:@"hideIconLabels"] ? @"YES" : @"NO"]
+	message:[NSString stringWithFormat:@"Homescreen Columns: %lu\rHomescreen Rows: %lu\rHide Icon Labels: %@",
+		(unsigned long)[[CBDManager sharedInstance] homescreenColumns],
+		(unsigned long)[[CBDManager sharedInstance] homescreenRows],
+		[[CBDManager sharedInstance] hideIconLabels] ? @"YES" : @"NO"
+	]
 	preferredStyle:UIAlertControllerStyleAlert];
 
 	UIAlertAction *changeHomescreenColumns = [UIAlertAction
@@ -445,7 +388,7 @@ static BOOL ignoreIsEditing = NO;
 	actionWithTitle:@"Toggle Hiding Labels"
 	style:UIAlertActionStyleDefault
 	handler:^(UIAlertAction *action){
-		[defaults setBool:![defaults boolForKey:@"hideIconLabels"] forKey:@"hideIconLabels"];
+		[CBDManager sharedInstance].hideIconLabels = ![CBDManager sharedInstance].hideIconLabels;
 		[[NSClassFromString(@"SBIconController") sharedInstance] relayout];
 		[self setMiscSettings];
 	}];
@@ -454,14 +397,8 @@ static BOOL ignoreIsEditing = NO;
 		actionWithTitle:@"Reset all Settings"
 		style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction *action){
-		[defaults removeObjectForKey:@"verticalOffset"];
-		[defaults removeObjectForKey:@"horizontalOffset"];
-		[defaults removeObjectForKey:@"verticalPadding"];
-		[defaults removeObjectForKey:@"horizontalPadding"];
-		[defaults setInteger:4 forKey:@"homescreenColumns"]; //Fixes Respring Loops due to nil or 0 homescreenColumns
-		[defaults setInteger:6 forKey:@"homescreenRows"]; //Fixes Respring Loops due to nil or 0 homescreenRows
-		[defaults removeObjectForKey:@"hideIconLabels"];
-		[defaults synchronize];
+		[[CBDManager sharedInstance] reset];
+		[[CBDManager sharedInstance] save];
 		[[NSClassFromString(@"SBIconController") sharedInstance] relayout];
 		[self setMiscSettings];
 	}];
@@ -484,8 +421,10 @@ static BOOL ignoreIsEditing = NO;
 static BOOL shouldSwitchSign = NO;
 NSString *oldText;
 
+// TODO FIX THIS
 +(void)setValueIntegerInput:(NSString*)editingType withKey:(NSString*)key withCaller:(int)caller {
-		long placeholder = (long)[defaults integerForKey:key];
+		//long placeholder = (long)[defaults integerForKey:key];
+		long placeholder = 0;
 		UIAlertController *integerInputController = [UIAlertController
 		alertControllerWithTitle:editingType
 		message:@""
@@ -493,7 +432,7 @@ NSString *oldText;
 
 		[integerInputController
 		addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-			textField.placeholder = stringFromIntegerKey(key);
+			textField.placeholder = @"uh";
 			if(shouldSwitchSign) {
 				if ([oldText hasPrefix:@"-"]) {
 					textField.text = [oldText substringFromIndex:1];
@@ -512,15 +451,15 @@ NSString *oldText;
 		handler:^(UIAlertAction *action) {
 			if([[integerInputController textFields][0] text].length == 0 || [[integerInputController textFields][0].text isEqualToString:@"-"]) {
 				if([[integerInputController textFields][0].placeholder isEqualToString:@"Not Set"]) {
-					[defaults removeObjectForKey:key];
+					//[defaults removeObjectForKey:key];
 				} else {
 					[integerInputController textFields][0].text = [NSString stringWithFormat:@"%ld", placeholder];
-					[defaults setInteger:[[[integerInputController textFields][0] text] intValue] forKey:key];
+					//[defaults setInteger:[[[integerInputController textFields][0] text] intValue] forKey:key];
 				}
 			} else {
-				[defaults setInteger:[[[integerInputController textFields][0] text] intValue] forKey:key];
+				//[defaults setInteger:[[[integerInputController textFields][0] text] intValue] forKey:key];
 			}
-			[defaults synchronize];
+			//[defaults synchronize];
 			[[NSClassFromString(@"SBIconController") sharedInstance] relayout];
 			switch(caller) {
 				case OFFSETSETTINGS:
@@ -554,8 +493,8 @@ NSString *oldText;
 		actionWithTitle:@"Set Default"
 		style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction *action) {
-			[defaults removeObjectForKey:key];
-			[defaults synchronize];
+			//[defaults removeObjectForKey:key];
+			//[defaults synchronize];
 			[[NSClassFromString(@"SBIconController") sharedInstance] relayout];
 			switch(caller) {
 				case OFFSETSETTINGS:
