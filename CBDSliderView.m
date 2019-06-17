@@ -28,7 +28,6 @@
 
 	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-	self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 	self.titleLabel.text = @"SLIDER";
 	self.titleLabel.textColor = [UIColor whiteColor];
 	self.titleLabel.textAlignment = NSTextAlignmentCenter;
