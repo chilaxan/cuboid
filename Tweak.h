@@ -6,14 +6,9 @@
 
 @end
 
-@interface SBRootFolderController : UIViewController
-
-@property (nonatomic, strong) CBDView *cbdView;
-
-@end
-
 @interface SBIconController : UIViewController
 
+@property (nonatomic, strong) CBDView *cbdView;
 +(id)sharedInstance;
 -(BOOL)isEditing;
 -(BOOL)relayout;

@@ -82,7 +82,7 @@
 
 %end
 
-%hook SBRootFolderController
+%hook SBIconController
 
 %property (nonatomic, strong) CBDView *cbdView;
 
@@ -98,10 +98,6 @@
 	%orig;
 	self.cbdView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.cbdView.frame.size.height);
 }
-
-%end
-
-%hook SBIconController
 
 -(void)setIsEditing:(BOOL)isEditing {
 	%orig;

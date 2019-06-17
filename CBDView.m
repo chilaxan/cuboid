@@ -67,6 +67,8 @@
 }
 
 -(void)setPresented:(BOOL)presented {
+	if (_presented == presented) return;
+	
 	_presented = presented;
 	if (presented) {
 		[self.superview bringSubviewToFront:self];
