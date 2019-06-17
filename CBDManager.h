@@ -23,6 +23,7 @@
 -(void)reset;
 -(void)relayout;
 -(void)relayoutAll;
+-(void)relayoutAllAnimated;
 
 -(void)loadLayoutWithName:(NSString *)name;
 -(void)saveLayoutWithName:(NSString *)name;

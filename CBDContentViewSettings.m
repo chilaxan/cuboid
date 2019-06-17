@@ -101,15 +101,6 @@
 		if ([inputController textFields][0].text) {
 			[[CBDManager sharedInstance] saveLayoutWithName:[inputController textFields][0].text];
 			[self refresh];
-
-			UIAlertController* savedAlert = [UIAlertController alertControllerWithTitle:@"Saved!"
-			message:[NSString stringWithFormat:@"Your layout \"%@\" was saved.", [inputController textFields][0].text]
-			preferredStyle:UIAlertControllerStyleAlert];
-
-			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-			handler:^(UIAlertAction * action) {}];
-			[savedAlert addAction:defaultAction];
-			[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:savedAlert animated:YES completion:NULL];
 		}
 	}];
 
@@ -131,15 +122,6 @@
 	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Reset settings" style:UIAlertActionStyleDefault
 	handler:^(UIAlertAction *action) {
 		[[CBDManager sharedInstance] reset];
-
-		UIAlertController* savedAlert = [UIAlertController alertControllerWithTitle:@"Settings were reset!"
-		message:@""
-		preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-		handler:^(UIAlertAction * action) {}];
-		[savedAlert addAction:defaultAction];
-		[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:savedAlert animated:YES completion:NULL];
 	}];
 
 	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
@@ -161,15 +143,6 @@
 	handler:^(UIAlertAction *action) {
 		[[CBDManager sharedInstance] deleteAllLayouts];
 		[self refresh];
-
-		UIAlertController* savedAlert = [UIAlertController alertControllerWithTitle:@"Removed!"
-		message:@"All layouts were removed."
-		preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-		handler:^(UIAlertAction * action) {}];
-		[savedAlert addAction:defaultAction];
-		[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:savedAlert animated:YES completion:NULL];
 	}];
 
 	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
@@ -212,15 +185,6 @@
 	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Restore" style:UIAlertActionStyleDefault
 	handler:^(UIAlertAction *action) {
 		[[CBDManager sharedInstance] loadLayoutWithName:key];
-
-		UIAlertController* savedAlert = [UIAlertController alertControllerWithTitle:@"Restored!"
-		message:[NSString stringWithFormat:@"Your layout \"%@\" was restored.", key]
-		preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-		handler:^(UIAlertAction * action) {}];
-		[savedAlert addAction:defaultAction];
-		[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:savedAlert animated:YES completion:NULL];
 	}];
 
 	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel

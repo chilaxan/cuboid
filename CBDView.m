@@ -78,7 +78,7 @@
 			[self layoutIfNeeded];
 		} completion:NULL];
 	} else {
-		[[CBDManager sharedInstance] relayoutAll];
+		[[CBDManager sharedInstance] relayoutAllAnimated];
 		[[CBDManager sharedInstance] save];
 		[[CBDManager sharedInstance] stopEditing];
 		[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{

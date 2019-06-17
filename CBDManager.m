@@ -55,7 +55,7 @@
 	self.verticalPadding = 0;
 	self.horizontalPadding = 0;
 	[self save];
-	[self relayoutAll];
+	[self relayoutAllAnimated];
 }
 
 -(void)relayout {
@@ -72,6 +72,17 @@
 	[self.view.superview bringSubviewToFront:self.view];
 }
 
+-(void)relayoutAllAnimated {
+	SBIconController *iconController = [NSClassFromString(@"SBIconController") sharedInstance];
+	SBRootIconListView *listView = [iconController rootIconListAtIndex:[iconController currentIconListIndex]];
+	[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		[listView layoutIconsNow];
+	} completion:^(BOOL whatever) {
+		[iconController relayout];
+		[self.view.superview bringSubviewToFront:self.view];
+	}];
+}
+
 -(void)loadLayoutWithName:(NSString *)name {
 	if (!self.savedLayouts[name]) return;
 	NSDictionary *layout = self.savedLayouts[name];
@@ -82,7 +93,7 @@
 	self.horizontalOffset = [layout[@"horizontalOffset"] floatValue];
 	self.verticalPadding = [layout[@"verticalPadding"] floatValue];
 	self.horizontalPadding = [layout[@"horizontalPadding"] floatValue];
-	[self relayoutAll];
+	[self relayoutAllAnimated];
 }
 
 -(void)saveLayoutWithName:(NSString *)name {

@@ -44,12 +44,12 @@
 
 -(void)updateHomescreenColumns:(id)sender {
 	[CBDManager sharedInstance].homescreenColumns = self.homescreenColumnsStepperView.stepper.value;
-	[[CBDManager sharedInstance] relayout];
+	[[CBDManager sharedInstance] relayoutAllAnimated];
 }
 
 -(void)updateHomescreenRows:(id)sender {
 	[CBDManager sharedInstance].homescreenRows = self.homescreenRowsStepperView.stepper.value;
-	[[CBDManager sharedInstance] relayoutAll];
+	[[CBDManager sharedInstance] relayoutAllAnimated];
 }
 
 -(void)updateHideLabels:(id)sender {
