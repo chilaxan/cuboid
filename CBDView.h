@@ -10,6 +10,7 @@
 @property (nonatomic, strong) CBDContentView* contentViewOffset;
 @property (nonatomic, strong) CBDContentView* contentViewPadding;
 @property (nonatomic, strong) CBDContentView* contentViewMiscellaneous;
+@property (nonatomic, strong) CBDContentView* contentViewSettings;
 
 @property (nonatomic, weak) CBDContentView* contentViewPresented;
 

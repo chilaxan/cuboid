@@ -3,6 +3,7 @@
 @interface CBDManager : NSObject
 
 @property (nonatomic, strong) NSUserDefaults* defaults;
+@property (nonatomic, strong) NSMutableDictionary *savedLayouts;
 
 @property (nonatomic, assign) BOOL hideIconLabels;
 @property (nonatomic, assign) NSUInteger homescreenColumns;
@@ -22,5 +23,11 @@
 -(void)reset;
 -(void)relayout;
 -(void)relayoutAll;
+
+-(void)loadLayoutWithName:(NSString *)name;
+-(void)saveLayoutWithName:(NSString *)name;
+-(void)renameLayoutWithName:(NSString *)name toName:(NSString *)newName;
+-(void)deleteLayoutWithName:(NSString *)name;
+-(void)deleteAllLayouts;
 
 @end

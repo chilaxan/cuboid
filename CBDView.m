@@ -5,6 +5,7 @@
 #import "CBDContentViewOffset.h"
 #import "CBDContentViewPadding.h"
 #import "CBDContentViewMiscellaneous.h"
+#import "CBDContentViewSettings.h"
 
 @implementation CBDView
 
@@ -33,6 +34,7 @@
 	[self createView:@"_contentViewOffset" ofClass:[CBDContentViewOffset class]];
 	[self createView:@"_contentViewPadding" ofClass:[CBDContentViewPadding class]];
 	[self createView:@"_contentViewMiscellaneous" ofClass:[CBDContentViewMiscellaneous class]];
+	[self createView:@"_contentViewSettings" ofClass:[CBDContentViewSettings class]];
 
 	return self;
 }

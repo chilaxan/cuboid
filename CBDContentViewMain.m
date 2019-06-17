@@ -23,7 +23,7 @@
 	[self.stackView addArrangedSubview:self.miscellaneousButton];
 
 	self.saveRestoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.saveRestoreButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+	[self.saveRestoreButton addTarget:self action:@selector(presentSettings:) forControlEvents:UIControlEventTouchUpInside];
 	[self.saveRestoreButton setTitle:@"Save / Restore" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.saveRestoreButton];
 
@@ -46,6 +46,10 @@
 
 -(void)presentMiscellaneous:(id)sender {
 	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewMiscellaneous];
+}
+
+-(void)presentSettings:(id)sender {
+	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewSettings];
 }
 
 @end
