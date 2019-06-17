@@ -2,6 +2,7 @@
 
 #import "CBDContentViewMain.h"
 #import "CBDContentViewOffset.h"
+#import "CBDContentViewPadding.h"
 
 @implementation CBDView
 
@@ -28,6 +29,7 @@
 	self.contentViewPresented = self.contentViewMain;
 
 	[self createView:@"_contentViewOffset" ofClass:[CBDContentViewOffset class]];
+	[self createView:@"_contentViewPadding" ofClass:[CBDContentViewPadding class]];
 
 	return self;
 }

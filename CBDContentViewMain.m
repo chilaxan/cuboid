@@ -13,7 +13,7 @@
 	[self.stackView addArrangedSubview:self.offsetSettingsButton];
 
 	self.paddingSettingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.paddingSettingsButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+	[self.paddingSettingsButton addTarget:self action:@selector(presentPadding:) forControlEvents:UIControlEventTouchUpInside];
 	[self.paddingSettingsButton setTitle:@"Padding" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.paddingSettingsButton];
 
@@ -38,6 +38,10 @@
 
 -(void)presentOffset:(id)sender {
 	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewOffset];
+}
+
+-(void)presentPadding:(id)sender {
+	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewPadding];
 }
 
 @end
