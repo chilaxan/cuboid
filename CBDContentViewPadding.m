@@ -11,16 +11,16 @@
 	self.verticalPaddingSliderView = [[CBDSliderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	self.verticalPaddingSliderView.titleLabel.text = @"VERTICAL PADDING";
 	[self.verticalPaddingSliderView.slider addTarget:self action:@selector(updateVerticalPadding:) forControlEvents:UIControlEventValueChanged];
-	self.verticalPaddingSliderView.slider.minimumValue = -150.0;
-	self.verticalPaddingSliderView.slider.maximumValue = 150.0;
+	self.verticalPaddingSliderView.slider.minimumValue = -200.0;
+	self.verticalPaddingSliderView.slider.maximumValue = 200.0;
 	self.verticalPaddingSliderView.slider.continuous = YES;
 	[self.stackView addArrangedSubview:self.verticalPaddingSliderView];
 
 	self.horizontalPaddingSliderView = [[CBDSliderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	self.horizontalPaddingSliderView.titleLabel.text = @"HORIZONTAL PADDING";
 	[self.horizontalPaddingSliderView.slider addTarget:self action:@selector(updateHorizontalPadding:) forControlEvents:UIControlEventValueChanged];
-	self.horizontalPaddingSliderView.slider.minimumValue = -150.0;
-	self.horizontalPaddingSliderView.slider.maximumValue = 150.0;
+	self.horizontalPaddingSliderView.slider.minimumValue = -200.0;
+	self.horizontalPaddingSliderView.slider.maximumValue = 200.0;
 	self.horizontalPaddingSliderView.slider.continuous = YES;
 	[self.stackView addArrangedSubview:self.horizontalPaddingSliderView];
 

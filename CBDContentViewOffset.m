@@ -11,7 +11,7 @@
 	self.verticalOffsetSliderView = [[CBDSliderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	self.verticalOffsetSliderView.titleLabel.text = @"VERTICAL OFFSET";
 	[self.verticalOffsetSliderView.slider addTarget:self action:@selector(updateVerticalOffset:) forControlEvents:UIControlEventValueChanged];
-	self.verticalOffsetSliderView.slider.minimumValue = -300.0;
+	self.verticalOffsetSliderView.slider.minimumValue = -400.0;
 	self.verticalOffsetSliderView.slider.maximumValue = 800.0;
 	self.verticalOffsetSliderView.slider.continuous = YES;
 	[self.stackView addArrangedSubview:self.verticalOffsetSliderView];
