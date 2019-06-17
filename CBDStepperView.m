@@ -29,15 +29,14 @@
 
 	[NSLayoutConstraint activateConstraints:@[
 		[self.stepper.topAnchor constraintEqualToAnchor:self.topAnchor constant:10],
-		[self.stepper.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-23],
-		[self.stepper.heightAnchor constraintEqualToConstant:35],
-		[self.stepper.widthAnchor constraintEqualToConstant:70]
+		[self.stepper.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-5],
+		[self.stepper.heightAnchor constraintEqualToConstant:30],
 	]];
 
 	[NSLayoutConstraint activateConstraints:@[
 		[self.valueLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:10],
 		[self.valueLabel.trailingAnchor constraintEqualToAnchor:self.stepper.leadingAnchor constant:-5],
-		[self.valueLabel.heightAnchor constraintEqualToConstant:35],
+		[self.valueLabel.heightAnchor constraintEqualToConstant:30],
 		[self.valueLabel.widthAnchor constraintEqualToConstant:45]
 	]];
 
@@ -45,11 +44,11 @@
 		[self.titleLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:10],
 		[self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
 		[self.titleLabel.trailingAnchor constraintEqualToAnchor:self.valueLabel.leadingAnchor constant:-5],
-		[self.titleLabel.heightAnchor constraintEqualToConstant:35]
+		[self.titleLabel.heightAnchor constraintEqualToConstant:30]
 	]];
 
 	[NSLayoutConstraint activateConstraints:@[
-		[self.heightAnchor constraintEqualToConstant:55],
+		[self.heightAnchor constraintEqualToConstant:50],
 	]];
 	
 	return self;
