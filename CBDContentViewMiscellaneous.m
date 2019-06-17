@@ -37,7 +37,7 @@
 	self.homescreenColumnsStepperView.stepper.value = ([CBDManager sharedInstance].homescreenColumns == 0) ? 4 : [CBDManager sharedInstance].homescreenColumns;
 	[self.homescreenColumnsStepperView updateValue:nil];
 
-	self.homescreenRowsStepperView.stepper.value = ([CBDManager sharedInstance].homescreenColumns == 0) ? 6 : [CBDManager sharedInstance].homescreenColumns;
+	self.homescreenRowsStepperView.stepper.value = ([CBDManager sharedInstance].homescreenRows == 0) ? 6 : [CBDManager sharedInstance].homescreenRows;
 	[self.homescreenRowsStepperView updateValue:nil];
 
 	self.hideIconLabelsSwitchView.theSwitch.on = [CBDManager sharedInstance].hideIconLabels;
@@ -45,7 +45,7 @@
 
 -(void)updateHomescreenColumns:(id)sender {
 	[CBDManager sharedInstance].homescreenColumns = self.homescreenColumnsStepperView.stepper.value;
-	[[CBDManager sharedInstance] relayoutAll];
+	[[CBDManager sharedInstance] relayout];
 }
 
 -(void)updateHomescreenRows:(id)sender {

@@ -17,15 +17,15 @@
 	[self.paddingSettingsButton setTitle:@"Padding" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.paddingSettingsButton];
 
-	self.saveRestoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.saveRestoreButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-	[self.saveRestoreButton setTitle:@"Save / Restore" forState:UIControlStateNormal];
-	[self.stackView addArrangedSubview:self.saveRestoreButton];
-
 	self.miscellaneousButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[self.miscellaneousButton addTarget:self action:@selector(presentMiscellaneous:) forControlEvents:UIControlEventTouchUpInside];
 	[self.miscellaneousButton setTitle:@"Miscellaneous" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.miscellaneousButton];
+
+	self.saveRestoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[self.saveRestoreButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+	[self.saveRestoreButton setTitle:@"Save / Restore" forState:UIControlStateNormal];
+	[self.stackView addArrangedSubview:self.saveRestoreButton];
 
 	[self.backButton setTitle:@"Done" forState:UIControlStateNormal];
 
