@@ -1,4 +1,5 @@
 #import "CBDSliderView.h"
+#import "CBDManager.h"
 
 @implementation CBDSliderView
 
@@ -59,6 +60,8 @@
 	self.slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 	[self.slider setThumbImage:[CBDSliderView thumbImage] forState:UIControlStateNormal];
 	[self.slider addTarget:self action:@selector(updateValue:) forControlEvents:UIControlEventValueChanged];
+	[self.slider addTarget:self action:@selector(touchDrag:) forControlEvents:UIControlEventTouchDragInside];
+	[self.slider addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 	self.slider.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.slider setMinimumTrackTintColor:[UIColor whiteColor]];
 	[self.slider setMaximumTrackTintColor:[UIColor blackColor]];
@@ -110,7 +113,18 @@
 
 	[integerInputController addAction:confirmAction];
 	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:integerInputController animated:YES completion:NULL];
-	
+}
+
+-(void)touchDrag:(id)sender {
+	[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		[[CBDManager sharedInstance] view].alpha = 0.3;
+	} completion:nil];
+}
+
+-(void)touchUp:(id)sender {
+	[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		[[CBDManager sharedInstance] view].alpha = 1.0;
+	} completion:nil];
 }
 
 @end
