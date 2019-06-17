@@ -6,9 +6,14 @@
 
 @end
 
-@interface SBIconController : UIViewController
+@interface SBHomeScreenViewController : UIViewController
 
 @property (nonatomic, strong) CBDView *cbdView;
+
+@end
+
+@interface SBIconController : UIViewController
+
 +(id)sharedInstance;
 -(BOOL)isEditing;
 -(BOOL)relayout;
@@ -20,7 +25,9 @@
 @end
 
 @interface UIStatusBarWindow : UIWindow
+
 @end
 
 @interface SBEditingDoneButton : UIView
+
 @end
