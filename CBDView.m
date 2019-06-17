@@ -68,7 +68,7 @@
 
 -(void)setPresented:(BOOL)presented {
 	if (_presented == presented) return;
-	
+
 	_presented = presented;
 	if (presented) {
 		[self.superview bringSubviewToFront:self];
@@ -80,6 +80,7 @@
 	} else {
 		[[CBDManager sharedInstance] relayoutAll];
 		[[CBDManager sharedInstance] save];
+		[[CBDManager sharedInstance] stopEditing];
 		[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 			self.alpha = 0.0;
 			self.frame = CGRectMake(0, 0, self.frame.size.width, 0);

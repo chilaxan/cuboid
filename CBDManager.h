@@ -30,4 +30,6 @@
 -(void)deleteLayoutWithName:(NSString *)name;
 -(void)deleteAllLayouts;
 
+-(void)stopEditing;
+
 @end

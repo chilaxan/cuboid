@@ -114,4 +114,9 @@
 	[self save];
 }
 
+-(void)stopEditing {
+	SBIconController *iconController = [NSClassFromString(@"SBIconController") sharedInstance];
+	[iconController setIsEditing:NO];
+}
+
 @end
