@@ -21,5 +21,6 @@
 -(void)save;
 -(void)reset;
 -(void)relayout;
+-(void)relayoutAll;
 
 @end

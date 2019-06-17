@@ -57,4 +57,10 @@
 	} completion:NULL];
 }
 
+-(void)relayoutAll {
+	SBIconController *iconController = [NSClassFromString(@"SBIconController") sharedInstance];
+	[iconController relayout];
+	[self.view.superview bringSubviewToFront:self.view];
+}
+
 @end

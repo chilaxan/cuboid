@@ -23,7 +23,7 @@
 	[self.stackView addArrangedSubview:self.saveRestoreButton];
 
 	self.miscellaneousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.miscellaneousButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+	[self.miscellaneousButton addTarget:self action:@selector(presentMiscellaneous:) forControlEvents:UIControlEventTouchUpInside];
 	[self.miscellaneousButton setTitle:@"Miscellaneous" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.miscellaneousButton];
 
@@ -42,6 +42,10 @@
 
 -(void)presentPadding:(id)sender {
 	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewPadding];
+}
+
+-(void)presentMiscellaneous:(id)sender {
+	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewMiscellaneous];
 }
 
 @end

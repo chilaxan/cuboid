@@ -1,8 +1,10 @@
 #import "CBDView.h"
+#import "CBDManager.h"
 
 #import "CBDContentViewMain.h"
 #import "CBDContentViewOffset.h"
 #import "CBDContentViewPadding.h"
+#import "CBDContentViewMiscellaneous.h"
 
 @implementation CBDView
 
@@ -30,6 +32,7 @@
 
 	[self createView:@"_contentViewOffset" ofClass:[CBDContentViewOffset class]];
 	[self createView:@"_contentViewPadding" ofClass:[CBDContentViewPadding class]];
+	[self createView:@"_contentViewMiscellaneous" ofClass:[CBDContentViewMiscellaneous class]];
 
 	return self;
 }
@@ -71,6 +74,8 @@
 			[self layoutIfNeeded];
 		} completion:NULL];
 	} else {
+		[[CBDManager sharedInstance] relayoutAll];
+		[[CBDManager sharedInstance] save];
 		[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 			self.alpha = 0.0;
 			self.frame = CGRectMake(0, 0, self.frame.size.width, 0);
