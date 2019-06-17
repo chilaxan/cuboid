@@ -42,7 +42,7 @@
 	]];
 
 	self.valueButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	//[self.valueButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+	[self.valueButton addTarget:self action:@selector(editValue:) forControlEvents:UIControlEventTouchUpInside];
 	[self.valueButton setTitle:@"0.0" forState:UIControlStateNormal];
 	self.valueButton.translatesAutoresizingMaskIntoConstraints = NO;
 	self.valueButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -53,7 +53,7 @@
 		[self.valueButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-10],
 		[self.valueButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
 		[self.valueButton.heightAnchor constraintEqualToConstant:35],
-		[self.valueButton.widthAnchor constraintEqualToConstant:40]
+		[self.valueButton.widthAnchor constraintEqualToConstant:45]
 	]];
 
 	self.slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -78,8 +78,39 @@
 	return self;
 }
 
+-(NSString *)valueAsString {
+	if (self.isInteger) return [NSString stringWithFormat:@"%.f", self.slider.value];
+	return [NSString stringWithFormat:@"%.01f", self.slider.value];
+}
+
 -(void)updateValue:(id)sender {
-	[self.valueButton setTitle:[NSString stringWithFormat:@"%.01f", self.slider.value] forState:UIControlStateNormal];
+	[self.valueButton setTitle:[self valueAsString] forState:UIControlStateNormal];
+}
+
+-(void)editValue:(id)sender {
+	NSString *placeholder = [self valueAsString];
+	
+	UIAlertController *integerInputController = [UIAlertController
+	alertControllerWithTitle:@"Edit value"
+	message:@""
+	preferredStyle:UIAlertControllerStyleAlert];
+
+	[integerInputController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+		textField.placeholder = placeholder;
+		textField.text = placeholder;
+	}];
+	
+	[[integerInputController textFields][0] setKeyboardType:UIKeyboardTypeNumberPad];
+
+	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+	handler:^(UIAlertAction *action) {
+		if ([integerInputController textFields][0].text) self.slider.value = [[integerInputController textFields][0].text intValue];
+		[self.slider sendActionsForControlEvents:UIControlEventValueChanged];
+	}];
+
+	[integerInputController addAction:confirmAction];
+	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:integerInputController animated:YES completion:NULL];
+	
 }
 
 @end
