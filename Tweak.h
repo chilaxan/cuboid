@@ -15,6 +15,7 @@
 -(void)setIsEditing:(BOOL)arg1;
 -(long long)currentIconListIndex;
 -(SBRootIconListView *)rootIconListAtIndex:(long long)arg1 ;
+-(NSTimer *)editingEndTimer;
 
 @end
 

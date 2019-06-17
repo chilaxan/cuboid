@@ -1,21 +1,6 @@
 #import "Tweak.h"
 #import "CBDManager.h"
 
-%hook SBRootFolderController
-
--(void)setEditingStatusBarAssertion:(id)arg1 {}
-
-%end
-
-%hook SBEditingDoneButton
-
--(void)layoutSubviews {
-	%orig;
-	self.hidden = 1;
-}
-
-%end
-
 %hook SBIconLegibilityLabelView
 
 -(void)setHidden:(BOOL)arg1 {
@@ -74,7 +59,10 @@
 
 %new
 -(void)cbdShowView {
-	if ([[%c(SBIconController) sharedInstance] isEditing]) [[CBDManager sharedInstance].view setPresented:YES];
+	if ([[%c(SBIconController) sharedInstance] isEditing]) {
+		[[[%c(SBIconController) sharedInstance] editingEndTimer] invalidate];
+		[[CBDManager sharedInstance].view setPresented:YES];
+	}
 }
 
 %end
