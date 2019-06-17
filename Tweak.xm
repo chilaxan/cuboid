@@ -82,7 +82,7 @@
 
 %end
 
-%hook SBHomeScreenViewController
+%hook SBRootFolderController
 
 %property (nonatomic, strong) CBDView *cbdView;
 

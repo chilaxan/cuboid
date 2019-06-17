@@ -6,7 +6,7 @@
 
 @end
 
-@interface SBHomeScreenViewController : UIViewController
+@interface SBRootFolderController : UIViewController
 
 @property (nonatomic, strong) CBDView *cbdView;
 
