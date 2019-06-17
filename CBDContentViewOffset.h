@@ -1,8 +1,9 @@
 #import "CBDContentView.h"
+#import "CBDSliderView.h"
 
 @interface CBDContentViewOffset : CBDContentView
 
-@property (nonatomic, strong) UISlider *verticalOffsetSlider;
-@property (nonatomic, strong) UISlider *horizontalOffsetSlider;
+@property (nonatomic, strong) CBDSliderView *verticalOffsetSliderView;
+@property (nonatomic, strong) CBDSliderView *horizontalOffsetSliderView;
 
 @end

@@ -9,19 +9,21 @@
 
 	self.titleLabel.text = @"Offset";
 
-	self.verticalOffsetSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-	[self.verticalOffsetSlider addTarget:self action:@selector(updateVerticalOffset:) forControlEvents:UIControlEventValueChanged];
-	self.verticalOffsetSlider.minimumValue = -150.0;
-	self.verticalOffsetSlider.maximumValue = 150.0;
-	self.verticalOffsetSlider.continuous = YES;
-	[self.stackView addArrangedSubview:self.verticalOffsetSlider];
+	self.verticalOffsetSliderView = [[CBDSliderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+	self.verticalOffsetSliderView.titleLabel.text = @"VERTICAL OFFSET";
+	[self.verticalOffsetSliderView.slider addTarget:self action:@selector(updateVerticalOffset:) forControlEvents:UIControlEventValueChanged];
+	self.verticalOffsetSliderView.slider.minimumValue = -150.0;
+	self.verticalOffsetSliderView.slider.maximumValue = 150.0;
+	self.verticalOffsetSliderView.slider.continuous = YES;
+	[self.stackView addArrangedSubview:self.verticalOffsetSliderView];
 
-	self.horizontalOffsetSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-	[self.horizontalOffsetSlider addTarget:self action:@selector(updateHorizontalOffset:) forControlEvents:UIControlEventValueChanged];
-	self.horizontalOffsetSlider.minimumValue = -150.0;
-	self.horizontalOffsetSlider.maximumValue = 150.0;
-	self.horizontalOffsetSlider.continuous = YES;
-	[self.stackView addArrangedSubview:self.horizontalOffsetSlider];
+	self.horizontalOffsetSliderView = [[CBDSliderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+	self.horizontalOffsetSliderView.titleLabel.text = @"HORIZONTAL OFFSET";
+	[self.horizontalOffsetSliderView.slider addTarget:self action:@selector(updateHorizontalOffset:) forControlEvents:UIControlEventValueChanged];
+	self.horizontalOffsetSliderView.slider.minimumValue = -150.0;
+	self.horizontalOffsetSliderView.slider.maximumValue = 150.0;
+	self.horizontalOffsetSliderView.slider.continuous = YES;
+	[self.stackView addArrangedSubview:self.horizontalOffsetSliderView];
 
 	[self refresh];
 
@@ -29,17 +31,20 @@
 }
 
 -(void)refresh {
-	self.verticalOffsetSlider.value = [CBDManager sharedInstance].verticalOffset;
-	self.horizontalOffsetSlider.value = [CBDManager sharedInstance].horizontalOffset;
+	self.verticalOffsetSliderView.slider.value = [CBDManager sharedInstance].verticalOffset;
+	[self.verticalOffsetSliderView updateValue:nil];
+
+	self.horizontalOffsetSliderView.slider.value = [CBDManager sharedInstance].horizontalOffset;
+	[self.horizontalOffsetSliderView updateValue:nil];
 }
 
 -(void)updateVerticalOffset:(id)sender {
-	[CBDManager sharedInstance].verticalOffset = self.verticalOffsetSlider.value;
+	[CBDManager sharedInstance].verticalOffset = self.verticalOffsetSliderView.slider.value;
 	[[CBDManager sharedInstance] relayout];
 }
 
 -(void)updateHorizontalOffset:(id)sender {
-	[CBDManager sharedInstance].horizontalOffset = self.horizontalOffsetSlider.value;
+	[CBDManager sharedInstance].horizontalOffset = self.horizontalOffsetSliderView.slider.value;
 	[[CBDManager sharedInstance] relayout];
 }
 
