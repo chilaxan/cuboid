@@ -1,4 +1,5 @@
 #import "CBDManager.h"
+#import "Tweak.h"
 
 @implementation CBDManager
 
@@ -46,6 +47,14 @@
 	self.horizontalOffset = 0;
 	self.verticalPadding = 0;
 	self.horizontalPadding = 0;
+}
+
+-(void)relayout {
+	SBIconController *iconController = [NSClassFromString(@"SBIconController") sharedInstance];
+	SBRootIconListView *listView = [iconController rootIconListAtIndex:[iconController currentIconListIndex]];
+	[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		[listView layoutIconsNow];
+	} completion:NULL];
 }
 
 @end

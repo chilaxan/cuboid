@@ -20,5 +20,6 @@
 -(void)load;
 -(void)save;
 -(void)reset;
+-(void)relayout;
 
 @end

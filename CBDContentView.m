@@ -1,4 +1,5 @@
 #import "CBDContentView.h"
+#import "CBDManager.h"
 
 @implementation CBDContentView
 
@@ -15,7 +16,7 @@
 	[self addSubview:self.titleLabel];
 
 	[NSLayoutConstraint activateConstraints:@[
-		[self.titleLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+		[self.titleLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:10],
 		[self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
 		[self.titleLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
 		[self.titleLabel.heightAnchor constraintEqualToConstant:35]
@@ -28,7 +29,7 @@
 	[self addSubview:self.backButton];
 
 	[NSLayoutConstraint activateConstraints:@[
-		[self.backButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+		[self.backButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-10],
 		[self.backButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
 		[self.backButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
 		[self.backButton.heightAnchor constraintEqualToConstant:35]
@@ -43,14 +44,19 @@
 	[NSLayoutConstraint activateConstraints:@[
 		[self.stackView.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:10],
 		[self.stackView.bottomAnchor constraintEqualToAnchor:self.backButton.topAnchor constant:-10],
-		[self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-		[self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+		[self.stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10],
+		[self.stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-10],
 	]];
 	
 	return self;
 }
 
 -(void)back:(id)sender {
+	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewMain];
+	[[CBDManager sharedInstance] save];
+}
+
+-(void)refresh {
 
 }
 

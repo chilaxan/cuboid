@@ -1,5 +1,6 @@
 #import "CBDContentViewMain.h"
 #import "CBDManager.h"
+#import "Tweak.h"
 
 @implementation CBDContentViewMain
 
@@ -7,13 +8,13 @@
 	self = [super initWithFrame:frame];
 
 	self.offsetSettingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.offsetSettingsButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-	[self.offsetSettingsButton setTitle:@"Offset Settings" forState:UIControlStateNormal];
+	[self.offsetSettingsButton addTarget:self action:@selector(presentOffset:) forControlEvents:UIControlEventTouchUpInside];
+	[self.offsetSettingsButton setTitle:@"Offset" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.offsetSettingsButton];
 
 	self.paddingSettingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[self.paddingSettingsButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-	[self.paddingSettingsButton setTitle:@"Padding Settings" forState:UIControlStateNormal];
+	[self.paddingSettingsButton setTitle:@"Padding" forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.paddingSettingsButton];
 
 	self.saveRestoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -33,6 +34,10 @@
 
 -(void)back:(id)sender {
 	[[CBDManager sharedInstance].view setPresented:NO];
+}
+
+-(void)presentOffset:(id)sender {
+	[[CBDManager sharedInstance].view presentView:[CBDManager sharedInstance].view.contentViewOffset];
 }
 
 @end

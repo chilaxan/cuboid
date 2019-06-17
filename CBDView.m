@@ -1,5 +1,8 @@
 #import "CBDView.h"
 
+#import "CBDContentViewMain.h"
+#import "CBDContentViewOffset.h"
+
 @implementation CBDView
 
 -(CBDView *)initWithFrame:(CGRect)frame {
@@ -20,20 +23,40 @@
 		[self.blurView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
 	]];
 
-	CGFloat topInset = [UIApplication sharedApplication].statusBarFrame.size.height;
-	
-	self.contentView = [[CBDContentViewMain alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-	self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-	[self addSubview:self.contentView];
+	[self createView:@"_contentViewMain" ofClass:[CBDContentViewMain class]];
+	self.contentViewMain.alpha = 1.0;
+	self.contentViewPresented = self.contentViewMain;
 
-	[NSLayoutConstraint activateConstraints:@[
-		[self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor constant:topInset],
-		[self.contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-		[self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-		[self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-	]];
+	[self createView:@"_contentViewOffset" ofClass:[CBDContentViewOffset class]];
 
 	return self;
+}
+
+-(void)createView:(NSString*)key ofClass:(Class)theClass {
+	UIView *view = [[theClass alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+	view.alpha = 0.0;
+	view.translatesAutoresizingMaskIntoConstraints = NO;
+	[self setValue:view forKey:key];
+	[self addSubview:view];
+
+	[NSLayoutConstraint activateConstraints:@[
+		[view.topAnchor constraintEqualToAnchor:self.topAnchor constant:[UIApplication sharedApplication].statusBarFrame.size.height],
+		[view.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+		[view.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+		[view.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+	]];
+}
+
+-(void)presentView:(CBDContentView*)view {
+	if (self.contentViewPresented == view) return;
+
+	__weak CBDContentView *oldPresented = self.contentViewPresented;
+	self.contentViewPresented = view;
+	[self.contentViewPresented refresh];
+	[UIView animateWithDuration:(0.15) delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		if (oldPresented) oldPresented.alpha = 0.0;
+		self.contentViewPresented.alpha = 1.0;
+	} completion:nil];
 }
 
 -(void)setPresented:(BOOL)presented {
