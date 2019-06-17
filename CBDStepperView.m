@@ -1,5 +1,4 @@
 #import "CBDStepperView.h"
-#import "CBDManager.h"
 
 @implementation CBDStepperView
 

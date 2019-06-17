@@ -1,6 +1,5 @@
 #import "CBDContentViewOffset.h"
 #import "CBDManager.h"
-#import "Tweak.h"
 
 @implementation CBDContentViewOffset
 

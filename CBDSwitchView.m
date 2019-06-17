@@ -1,5 +1,4 @@
 #import "CBDSwitchView.h"
-#import "CBDManager.h"
 
 @implementation CBDSwitchView
 

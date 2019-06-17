@@ -1,6 +1,5 @@
 #import "CBDContentViewPadding.h"
 #import "CBDManager.h"
-#import "Tweak.h"
 
 @implementation CBDContentViewPadding
 

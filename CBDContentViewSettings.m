@@ -1,6 +1,5 @@
 #import "CBDContentViewSettings.h"
 #import "CBDManager.h"
-#import "Tweak.h"
 
 @implementation CBDContentViewSettings
 
