@@ -75,7 +75,9 @@
 			self.alpha = 0.0;
 			self.frame = CGRectMake(0, 0, self.frame.size.width, 0);
 			[self layoutIfNeeded];
-		} completion:NULL];
+		} completion:^(BOOL whatever) {
+			[self presentView:self.contentViewMain];
+		}];
 	}
 }
 
