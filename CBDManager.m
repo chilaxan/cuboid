@@ -75,7 +75,7 @@
 -(void)loadLayoutWithName:(NSString *)name {
 	if (!self.savedLayouts[name]) return;
 	NSDictionary *layout = self.savedLayouts[name];
-	self.hideIconLabels = [layout[@"hideIconLabels"] boolValue];
+	self.hideIconLabels = [layout[@"hideIconLabels"] isEqualToString:@"YES"];
 	self.homescreenColumns = [layout[@"homescreenColumns"] intValue];
 	self.homescreenRows = [layout[@"homescreenRows"] intValue];
 	self.verticalOffset = [layout[@"verticalOffset"] floatValue];
@@ -87,13 +87,13 @@
 
 -(void)saveLayoutWithName:(NSString *)name {
 	self.savedLayouts[name] = @{
-		@"hideIconLabels": @(self.hideIconLabels),
-		@"homescreenColumns": @(self.homescreenColumns),
-		@"homescreenRows": @(self.homescreenRows),
-		@"verticalOffset": @(self.verticalOffset),
-		@"horizontalOffset": @(self.horizontalOffset),
-		@"verticalPadding": @(self.verticalPadding),
-		@"horizontalPadding": @(self.horizontalPadding),
+		@"hideIconLabels": self.hideIconLabels ? @"YES" : @"NO",
+		@"homescreenColumns": [NSString stringWithFormat:@"%lu", (unsigned long)self.homescreenColumns],
+		@"homescreenRows": [NSString stringWithFormat:@"%lu", (unsigned long)self.homescreenRows],
+		@"verticalOffset": [NSString stringWithFormat:@"%.1f", self.verticalOffset],
+		@"horizontalOffset": [NSString stringWithFormat:@"%.1f", self.horizontalOffset],
+		@"verticalPadding": [NSString stringWithFormat:@"%.1f", self.verticalPadding],
+		@"horizontalPadding": [NSString stringWithFormat:@"%.1f", self.horizontalPadding],
 	};
 	[self save];
 }
