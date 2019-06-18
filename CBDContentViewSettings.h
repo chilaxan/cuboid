@@ -6,6 +6,7 @@
 @property (nonatomic, strong) UIButton *saveButton;
 @property (nonatomic, strong) UIButton *removeAllButton;
 @property (nonatomic, strong) UIButton *resetButton;
+@property (nonatomic, strong) UIButton *showButton;
 
 @property (nonatomic, retain) UIView* emptyView;
 @property (nonatomic, retain) UILabel* listEmptyLabel;

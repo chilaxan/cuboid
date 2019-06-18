@@ -100,8 +100,8 @@
 	[self relayoutAllAnimated];
 }
 
--(void)saveLayoutWithName:(NSString *)name {
-	self.savedLayouts[name] = @{
+-(NSDictionary *)currentSettingsAsDictionary {
+	return @{
 		@"hideIconLabels": self.hideIconLabels ? @"YES" : @"NO",
 		@"hideIconDots": self.hideIconDots ? @"YES" : @"NO",
 		@"homescreenColumns": [NSString stringWithFormat:@"%lu", (unsigned long)self.homescreenColumns],
@@ -111,6 +111,22 @@
 		@"verticalPadding": [NSString stringWithFormat:@"%.1f", self.verticalPadding],
 		@"horizontalPadding": [NSString stringWithFormat:@"%.1f", self.horizontalPadding],
 	};
+}
+
+-(NSString *)layoutDescription:(NSDictionary *)layout {
+	return [NSString stringWithFormat:@"Hide icon labels: %@\nHomescreen columns: %@\nHomescreen rows: %@\nVertical offset: %@\nHorizontal offset: %@\nVertical padding: %@\nHorizontal padding: %@",
+		layout[@"hideIconLabels"],
+		layout[@"homescreenColumns"],
+		layout[@"homescreenRows"],
+		layout[@"verticalOffset"],
+		layout[@"horizontalOffset"],
+		layout[@"verticalPadding"],
+		layout[@"horizontalPadding"]
+	];
+}
+
+-(void)saveLayoutWithName:(NSString *)name {
+	self.savedLayouts[name] = [self currentSettingsAsDictionary];
 	[self save];
 }
 

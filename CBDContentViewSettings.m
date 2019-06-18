@@ -33,6 +33,11 @@
 	[self.resetButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 	[self.stackView addArrangedSubview:self.resetButton];
 
+	self.showButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[self.showButton addTarget:self action:@selector(showCurrentSettings:) forControlEvents:UIControlEventTouchUpInside];
+	[self.showButton setTitle:@"Show" forState:UIControlStateNormal];
+	[self.stackView addArrangedSubview:self.showButton];
+
 	self.saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[self.saveButton addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
 	[self.saveButton setTitle:@"Save" forState:UIControlStateNormal];
@@ -154,6 +159,23 @@
 	[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
 }
 
+-(void)showCurrentSettings:(id)sender {
+	[self showLayout:[[CBDManager sharedInstance] currentSettingsAsDictionary]];
+}
+
+-(void)showLayout:(NSDictionary *)layout {
+	UIAlertController *inputController = [UIAlertController
+	alertControllerWithTitle:@"Layout"
+	message:[[CBDManager sharedInstance] layoutDescription:layout]
+	preferredStyle:UIAlertControllerStyleAlert];
+
+	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+	handler:^(UIAlertAction *action) {}];
+
+	[inputController addAction:confirmAction];
+	[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
 }
@@ -228,13 +250,18 @@
 	}];
 	renameAction.backgroundColor = [UIColor colorWithRed:0.27 green:0.47 blue:0.56 alpha:1.0];
 
+	UITableViewRowAction *showAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Show" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {  
+		[self showLayout:[CBDManager sharedInstance].savedLayouts[key]];
+	}];
+	showAction.backgroundColor = [UIColor colorWithRed:0.27 green:0.70 blue:0.56 alpha:1.0];
+
 	UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
 		[[CBDManager sharedInstance] deleteLayoutWithName:key];
 		[self refresh];
 	}];
 	deleteAction.backgroundColor = [UIColor redColor];
 
-	return @[deleteAction, renameAction];
+	return @[deleteAction, showAction, renameAction];
 }
 
 @end

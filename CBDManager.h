@@ -26,6 +26,8 @@
 -(void)relayoutAll;
 -(void)relayoutAllAnimated;
 
+-(NSDictionary *)currentSettingsAsDictionary;
+-(NSString *)layoutDescription:(NSDictionary *)layout;
 -(void)loadLayoutWithName:(NSString *)name;
 -(void)saveLayoutWithName:(NSString *)name;
 -(void)renameLayoutWithName:(NSString *)name toName:(NSString *)newName;
