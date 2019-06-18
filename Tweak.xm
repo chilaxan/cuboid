@@ -105,3 +105,21 @@
 }
 
 %end
+
+/* Disable home screen rotation on + devices. */
+
+%hook SpringBoard
+
+- (long long)homeScreenRotationStyle {
+	return 0;
+}
+
+-(BOOL)homeScreenRotationStyleWantsUIKitRotation {
+	return NO;
+}
+
+-(BOOL)homeScreenSupportsRotation {
+	return NO;
+}
+
+%end
