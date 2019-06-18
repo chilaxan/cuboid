@@ -89,14 +89,14 @@
 -(void)loadLayoutWithName:(NSString *)name {
 	if (!self.savedLayouts[name]) return;
 	NSDictionary *layout = self.savedLayouts[name];
-	self.hideIconLabels = [layout[@"hideIconLabels"] isEqualToString:@"YES"];
-	self.hideIconDots = [layout[@"hideIconDots"] isEqualToString:@"YES"];
-	self.homescreenColumns = [layout[@"homescreenColumns"] intValue];
-	self.homescreenRows = [layout[@"homescreenRows"] intValue];
-	self.verticalOffset = [layout[@"verticalOffset"] floatValue];
-	self.horizontalOffset = [layout[@"horizontalOffset"] floatValue];
-	self.verticalPadding = [layout[@"verticalPadding"] floatValue];
-	self.horizontalPadding = [layout[@"horizontalPadding"] floatValue];
+	self.hideIconLabels      = layout[@"hideIconLabels"]      ? [layout[@"hideIconLabels"] isEqualToString:@"YES"]  : NO;
+	self.hideIconDots        = layout[@"hideIconDots"]        ? [layout[@"hideIconDots"] isEqualToString:@"YES"]    : NO;
+	self.homescreenColumns   = layout[@"homescreenColumns"]   ? [layout[@"homescreenColumns"] intValue]             : 0;
+	self.homescreenRows      = layout[@"homescreenRows"]      ? [layout[@"homescreenRows"] intValue]                : 0;
+	self.verticalOffset      = layout[@"verticalOffset"]      ? [layout[@"verticalOffset"] floatValue]              : 0;
+	self.horizontalOffset    = layout[@"horizontalOffset"]    ? [layout[@"horizontalOffset"] floatValue]            : 0;
+	self.verticalPadding     = layout[@"verticalPadding"]     ? [layout[@"verticalPadding"] floatValue]             : 0;
+	self.horizontalPadding   = layout[@"horizontalPadding"]   ? [layout[@"horizontalPadding"] floatValue]           : 0;
 	[self relayoutAllAnimated];
 }
 
