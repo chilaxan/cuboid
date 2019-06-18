@@ -25,6 +25,15 @@
 
 %end
 
+%hook SBIconDotLabelAccessoryView
+
+-(void)setHidden:(BOOL)arg1 {
+	if ([[CBDManager sharedInstance] hideIconLabels] || [[CBDManager sharedInstance] hideIconDots]) %orig(YES);
+	else %orig;
+}
+
+%end
+
 %hook SBRootIconListView
 
 +(NSUInteger)iconColumnsForInterfaceOrientation:(NSInteger)arg1{

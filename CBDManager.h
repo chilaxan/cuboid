@@ -6,6 +6,7 @@
 @property (nonatomic, strong) NSMutableDictionary *savedLayouts;
 
 @property (nonatomic, assign) BOOL hideIconLabels;
+@property (nonatomic, assign) BOOL hideIconDots;
 @property (nonatomic, assign) NSUInteger homescreenColumns;
 @property (nonatomic, assign) NSUInteger homescreenRows;
 @property (nonatomic, assign) CGFloat verticalOffset;

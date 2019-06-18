@@ -21,6 +21,7 @@
 
 -(void)load {
 	self.hideIconLabels = [self.defaults boolForKey:@"hideIconLabels"];
+	self.hideIconDots = [self.defaults boolForKey:@"hideIconDots"];
 	self.homescreenColumns = [self.defaults integerForKey:@"homescreenColumns"];
 	self.homescreenRows = [self.defaults integerForKey:@"homescreenRows"];
 	self.verticalOffset = [self.defaults floatForKey:@"verticalOffset"];
@@ -36,6 +37,7 @@
 
 -(void)save {
 	[self.defaults setBool:self.hideIconLabels forKey:@"hideIconLabels"];
+	[self.defaults setBool:self.hideIconDots forKey:@"hideIconDots"];
 	[self.defaults setInteger:self.homescreenColumns forKey:@"homescreenColumns"];
 	[self.defaults setInteger:self.homescreenRows forKey:@"homescreenRows"];
 	[self.defaults setFloat:self.verticalOffset forKey:@"verticalOffset"];
@@ -47,7 +49,8 @@
 }
 
 -(void)reset {
-	self.hideIconLabels = 0;
+	self.hideIconLabels = NO;
+	self.hideIconDots = NO;
 	self.homescreenColumns = 0;
 	self.homescreenRows = 0;
 	self.verticalOffset = 0;
