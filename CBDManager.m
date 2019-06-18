@@ -90,6 +90,7 @@
 	if (!self.savedLayouts[name]) return;
 	NSDictionary *layout = self.savedLayouts[name];
 	self.hideIconLabels = [layout[@"hideIconLabels"] isEqualToString:@"YES"];
+	self.hideIconDots = [layout[@"hideIconDots"] isEqualToString:@"YES"];
 	self.homescreenColumns = [layout[@"homescreenColumns"] intValue];
 	self.homescreenRows = [layout[@"homescreenRows"] intValue];
 	self.verticalOffset = [layout[@"verticalOffset"] floatValue];
@@ -102,6 +103,7 @@
 -(void)saveLayoutWithName:(NSString *)name {
 	self.savedLayouts[name] = @{
 		@"hideIconLabels": self.hideIconLabels ? @"YES" : @"NO",
+		@"hideIconDots": self.hideIconDots ? @"YES" : @"NO",
 		@"homescreenColumns": [NSString stringWithFormat:@"%lu", (unsigned long)self.homescreenColumns],
 		@"homescreenRows": [NSString stringWithFormat:@"%lu", (unsigned long)self.homescreenRows],
 		@"verticalOffset": [NSString stringWithFormat:@"%.1f", self.verticalOffset],
