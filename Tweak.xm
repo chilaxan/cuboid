@@ -25,11 +25,13 @@
 
 %end
 
-%hook SBIconDotLabelAccessoryView
+%hook SBIconView
 
--(void)setHidden:(BOOL)arg1 {
-	if ([[CBDManager sharedInstance] hideIconLabels] || [[CBDManager sharedInstance] hideIconDots]) %orig(YES);
-	else %orig;
+-(void)layoutSubviews {
+	%orig;
+	if ([[CBDManager sharedInstance] hideIconLabels] || [[CBDManager sharedInstance] hideIconDots]) {
+		[self setLabelAccessoryViewHidden:YES];
+	}
 }
 
 %end

@@ -6,6 +6,12 @@
 
 @end
 
+@interface SBIconView : UIView
+
+-(void)setLabelAccessoryViewHidden:(BOOL)arg1 ;
+
+@end
+
 @interface SBIconController : UIViewController
 
 @property (nonatomic, strong) CBDView *cbdView;
