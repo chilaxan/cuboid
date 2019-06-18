@@ -33,4 +33,6 @@
 
 -(void)stopEditing;
 
+-(void)presentViewController:(UIViewController*)viewController animated:(BOOL)animated completion:(id)completion;
+
 @end

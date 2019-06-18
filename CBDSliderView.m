@@ -111,7 +111,7 @@
 	}];
 
 	[integerInputController addAction:confirmAction];
-	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:integerInputController animated:YES completion:NULL];
+	[[CBDManager sharedInstance] presentViewController:integerInputController animated:YES completion:NULL];
 }
 
 -(void)touchDrag:(id)sender {

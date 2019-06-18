@@ -130,4 +130,9 @@
 	[iconController setIsEditing:NO];
 }
 
+-(void)presentViewController:(UIViewController*)viewController animated:(BOOL)animated completion:(id)completion {
+	SBIconController *iconController = [NSClassFromString(@"SBIconController") sharedInstance];
+	[iconController presentViewController:viewController animated:animated completion:completion];
+}
+
 @end

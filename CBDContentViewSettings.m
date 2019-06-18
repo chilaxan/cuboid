@@ -52,10 +52,10 @@
 	self.tableView.backgroundColor = [UIColor clearColor];
 	[self addSubview:self.tableView];
 
-	self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,100)];
+	self.emptyView = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,1)];
 
-	self.listEmptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,50,100)];
-	self.listEmptyLabel.text = @"You currently have no saved settings.";
+	self.listEmptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,50,50)];
+	self.listEmptyLabel.text = @"You have no saved settings.";
 	self.listEmptyLabel.textColor = [UIColor whiteColor];
 	self.listEmptyLabel.textAlignment = NSTextAlignmentCenter;
 	self.listEmptyLabel.numberOfLines = 0;
@@ -110,7 +110,7 @@
 
 	[inputController addAction:confirmAction];
 	[inputController addAction:cancelAction];
-	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:inputController animated:YES completion:NULL];
+	[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
 }
 
 -(void)reset:(id)sender {
@@ -130,7 +130,7 @@
 
 	[inputController addAction:confirmAction];
 	[inputController addAction:cancelAction];
-	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:inputController animated:YES completion:NULL];
+	[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
 }
 
 -(void)removeAll:(id)sender {
@@ -151,7 +151,7 @@
 
 	[inputController addAction:confirmAction];
 	[inputController addAction:cancelAction];
-	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:inputController animated:YES completion:NULL];
+	[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -193,7 +193,7 @@
 
 	[inputController addAction:confirmAction];
 	[inputController addAction:cancelAction];
-	[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:inputController animated:YES completion:NULL];
+	[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
 }
 
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -224,7 +224,7 @@
 
 		[inputController addAction:confirmAction];
 		[inputController addAction:cancelAction];
-		[[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:inputController animated:YES completion:NULL];
+		[[CBDManager sharedInstance] presentViewController:inputController animated:YES completion:NULL];
 	}];
 	renameAction.backgroundColor = [UIColor colorWithRed:0.27 green:0.47 blue:0.56 alpha:1.0];
 
