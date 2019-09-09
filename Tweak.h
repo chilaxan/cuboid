@@ -28,7 +28,3 @@
 @interface UIStatusBarWindow : UIWindow
 
 @end
-
-@interface SBEditingDoneButton : UIView
-
-@end
